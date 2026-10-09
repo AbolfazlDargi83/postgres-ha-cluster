@@ -27,3 +27,21 @@ This repository demonstrates a production-grade, highly available (HA) PostgreSQ
 **1. Spin up the cluster:**
 ```bash
 docker compose up -d
+```
+
+**2. Check the cluster status:**
+```bash
+docker compose exec pg1 patronictl topology
+```
+
+**3.Inject chaos**
+
+```bash
+docker kill <leader_container_id>
+```
+
+**4.Test HAProxy Routing:**
+
+```bash
+psql "postgresql://postgres:superadmin@<haproxy_ip>:5432/postgres?sslmode=require"
+```
